@@ -1,10 +1,18 @@
 from services.admin_services import admin_login_check,add_admin
-from flask import request
+from flask import request,render_template,redirect,url_for
 
 def login_controller():
-    data=request.get_json()
-    return admin_login_check(data)
+    if request.method == "POST":
+        data=request.form.to_dict()
+        res=admin_login_check(data)
+        if res :
+            return redirect(url_for('products.get_products'))
+    return render_template("login.html")
 
 def singup_controller():
-    data=request.get_json()
-    return add_admin(data)
+    if request.method == "POST":
+        data=request.form.to_dict()
+        res=add_admin(data)
+        if res:
+            return redirect(url_for('products.get_products'))
+    return render_template("signup.html")

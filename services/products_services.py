@@ -10,14 +10,16 @@ def add_items(data):
 def get_allitems():
     return getallitems()
 
-def get_itemby_id(id):
+def get_itemby_id(data):
+    id=data.get("id")
     return getitemsbyid(id)
 
 def get_itemsby_type(data):
-    type=data.get("type")
+    type=data
     return getitemsbytype(type)
 
-def update_items(id,data):
+def update_items(data):
+    id=data.get("id")
     quantity=data.get("quantity")
     price=data.get("price")
     return updateitems(id,price,quantity)

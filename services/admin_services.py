@@ -10,9 +10,9 @@ def admin_login_check(data):
         res=bcrypt.checkpw(password.encode('utf-8'),store_password)
         if res:
             session["admin"]=name
-            return {"Message":"Welcome"}
+            return True
         else:
-            return {"Message":"Wrong Credentuals"}            
+            return None         
         
 def add_admin(data):
     adid=data.get("id")
@@ -22,6 +22,6 @@ def add_admin(data):
     hashed=bcrypt.hashpw(pswd_bytes,bcrypt.gensalt())
     res=admin_signup(adid,name,hashed)
     if res:
-        return {"Message":"Added Successfully"}
+        return True
     else:
-        return {"Message" :"An Error Occured"}
+        return None

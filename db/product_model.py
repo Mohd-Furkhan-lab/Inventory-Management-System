@@ -23,7 +23,7 @@ def getitemsbyid(id):
         cursor=conn.cursor()
         cursor.execute("SELECT * FROM Products WHERE Id = ? ",(id,))
         data=cursor.fetchone()
-        return {"data":data}
+        return data
 
 def getitemsbytype(type):
     with get_product_db() as conn:

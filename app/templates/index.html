@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">Inventory Management</div>
+        <div class="nav-items">
+            <div class="dropdown">
+                <button class="nav-button" id="allProductsBtn">All Products ▼</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <button onclick="showFindById()">Find by ID</button>
+                    <button onclick="showFindByType()">Find by Type</button>
+                </div>
+            </div>
+            <button class="add-button" onclick="showAddForm()">Add Product</button>
+        </div>
+    </nav>
+
+    <!-- Search Form (Hidden by default) -->
+    <div class="search-container" id="searchContainer" style="display: none;">
+        <form class="search-form" onsubmit="handleSearch(event)">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Search..."
+                class="search-input"
+            />
+            <button type="submit" class="search-button">Search</button>
+            <button type="button" class="clear-button" onclick="clearSearch()">Clear</button>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    {%for d in data%}
+                    <tr>
+                        {% for i in d %}
+                            <td>{{i}}</td>
+                        {% endfor %}
+                        <td><button id="update-btn" onclick="openUpdateModal(
+        '{{d[0]}}',
+        '{{d[1]}}',
+        '{{d[4]}}',   
+        '{{d[3]}}',   
+        '{{d[2]}}'    
+    )">Update</button></td>
+                        <td><button id="delete-btn">Delete</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h2>Add New Product</h2>
+            <form method="post" action="" id="addProductForm" onsubmit="handleAddProduct(event) ">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="addName" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Type</label>
+                    <input type="text" id="addType" required>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" step="0.01" id="addPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="addQuantity" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-button" onclick="closeAddForm()">Cancel</button>
+                    <button type="submit" class="submit-button">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Product Modal -->
+    <div class="modal" id="updateModal">
+        <div class="modal-content">
+            <h2>Update Product <span id="updateProductId"></span></h2>
+            <form id="updateProductForm" onsubmit="handleUpdateProduct(event)">
+                <input type="hidden" id="updateId">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="updateName" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Type</label>
+                    <input type="text" id="updateType" required>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" step="0.01" id="updatePrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="updateQuantity" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-button" onclick="closeUpdateForm()">Cancel</button>
+                    <button type="submit" class="update-button">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{url_for('static',filename='script.js')}}"></script>
+</body>
+</html>
