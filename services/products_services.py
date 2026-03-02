@@ -10,8 +10,7 @@ def add_items(data):
 def get_allitems():
     return getallitems()
 
-def get_itemby_id(data):
-    id=data.get("id")
+def get_itemby_id(id):
     return getitemsbyid(id)
 
 def get_itemsby_type(data):

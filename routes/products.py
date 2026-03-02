@@ -8,10 +8,10 @@ products=Blueprint("products",__name__,url_prefix="/products")
 def get_products():
     return get_all_items_controller()
 
-@products.route('/',methods=["GET","POST"])
+@products.route('/id',methods=["GET","POST"])
 @is_login
 def get_productsbyid():
-    return get_itemby_id_controller(id)
+    return get_itemby_id_controller()
 
 @products.route('/type',methods=["GET","POST"])
 @is_login

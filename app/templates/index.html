@@ -11,22 +11,27 @@
     <nav class="navbar">
         <div class="nav-brand">Inventory Management</div>
         <div class="nav-items">
-            <div class="dropdown">
-                <button class="nav-button" id="allProductsBtn">All Products ▼</button>
-                <div class="dropdown-content" id="dropdownMenu">
-                    <button onclick="showFindById()">Find by ID</button>
-                    <button onclick="showFindByType()">Find by Type</button>
-                </div>
             </div>
             <button class="add-button" onclick="showAddForm()">Add Product</button>
+        <div>
+            <form method="post" action="{{ url_for('products.get_productsbyid') }}">
+                <input type="number" name="id" placeholder="Search by ID" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div>
+            <form method="post" action="{{ url_for('products.get_products_bytype') }}">
+                <input type="text" name="type" placeholder="Search by Type" required>
+                <button type="submit">Search</button>
+            </form>
         </div>
     </nav>
-
     <!-- Search Form (Hidden by default) -->
     <div class="search-container" id="searchContainer" style="display: none;">
-        <form class="search-form" onsubmit="handleSearch(event)">
+        <form method="post" class="search-form" id="searchForm">
             <input 
                 type="text" 
+                name="search_value"
                 id="searchInput" 
                 placeholder="Search..."
                 class="search-input"
@@ -58,13 +63,17 @@
                             <td>{{i}}</td>
                         {% endfor %}
                         <td><button id="update-btn" onclick="openUpdateModal(
-        '{{d[0]}}',
-        '{{d[1]}}',
-        '{{d[4]}}',   
-        '{{d[3]}}',   
-        '{{d[2]}}'    
-    )">Update</button></td>
-                        <td><button id="delete-btn">Delete</button></td>
+                            '{{ d[0] }}',
+                            '{{ d[2]}}',
+                            '{{ d[3] }}'
+                            )">Update</button>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('products.delete_products') }}" method="post">
+                                <input type="hidden" name="id" value="{{ d[0] }}">
+                                <button type="submit" id="delete-btn">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -76,22 +85,22 @@
     <div class="modal" id="addModal">
         <div class="modal-content">
             <h2>Add New Product</h2>
-            <form method="post" action="" id="addProductForm" onsubmit="handleAddProduct(event) ">
+            <form method="post" action="{{url_for('products.add_products')}}" id="addProductForm">
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" id="addName" required>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label>Product Type</label>
-                    <input type="text" id="addType" required>
+                    <input type="text" id="type" name="type" required>
                 </div>
                 <div class="form-group">
                     <label>Price</label>
-                    <input type="number" step="0.01" id="addPrice" required>
+                    <input type="number" step="0.01" name="price" id="addPrice" required>
                 </div>
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" id="addQuantity" required>
+                    <input type="number" name="quantity" id="addQuantity" required>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="cancel-button" onclick="closeAddForm()">Cancel</button>
@@ -105,23 +114,18 @@
     <div class="modal" id="updateModal">
         <div class="modal-content">
             <h2>Update Product <span id="updateProductId"></span></h2>
-            <form id="updateProductForm" onsubmit="handleUpdateProduct(event)">
-                <input type="hidden" id="updateId">
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" id="updateName" required>
-                </div>
-                <div class="form-group">
-                    <label>Product Type</label>
-                    <input type="text" id="updateType" required>
+            <form id="updateProductForm" action="{{url_for('products.update_products')}}" method="post">
+                 <div class="form-group">
+                    <label>Id</label>
+                    <input type="number" step="0.01" id="updateId" name="id" required>
                 </div>
                 <div class="form-group">
                     <label>Price</label>
-                    <input type="number" step="0.01" id="updatePrice" required>
+                    <input type="number" step="0.01" id="updatePrice" name="price" required>
                 </div>
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" id="updateQuantity" required>
+                    <input type="number" id="updateQuantity" name="quantity" required>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="cancel-button" onclick="closeUpdateForm()">Cancel</button>
@@ -130,7 +134,10 @@
             </form>
         </div>
     </div>
-
+    <script>
+        const findByIdUrl = "{{ url_for('products.get_productsbyid') }}";
+        const findByTypeUrl = "{{ url_for('products.get_products_bytype') }}";
+    </script>
     <script src="{{url_for('static',filename='script.js')}}"></script>
 </body>
 </html>

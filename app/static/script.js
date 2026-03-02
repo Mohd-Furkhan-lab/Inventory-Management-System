@@ -12,12 +12,10 @@ function closeAddForm() {
 }
 
 // Update Modal
-function openUpdateModal(id, name, type, price, quantity) {
+function openUpdateModal(id, price, quantity) {
     document.getElementById("updateModal").style.display = "flex";
 
     document.getElementById("updateId").value = id;
-    document.getElementById("updateName").value = name;
-    document.getElementById("updateType").value = type;
     document.getElementById("updatePrice").value = price;
     document.getElementById("updateQuantity").value = quantity;
 }
@@ -82,4 +80,27 @@ function handleAddProduct(event) {
 function handleUpdateProduct(event) {
     event.preventDefault();
     console.log("Update Product submitted");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const messageElement = document.getElementById("server-message");
+    
+    if (!messageElement) return;
+
+    const message = messageElement.value;
+
+    if (message) {
+        showPopup(message);
+    }
+});
+
+
+function showFindById() {
+    document.getElementById("searchContainer").style.display = "block";
+    document.getElementById("searchForm").action = findByIdUrl;
+}
+
+function showFindByType() {
+    document.getElementById("searchContainer").style.display = "block";
+    document.getElementById("searchForm").action = findByTypeUrl;
 }

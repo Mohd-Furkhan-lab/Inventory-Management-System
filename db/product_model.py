@@ -22,7 +22,7 @@ def getitemsbyid(id):
     with get_product_db() as conn:
         cursor=conn.cursor()
         cursor.execute("SELECT * FROM Products WHERE Id = ? ",(id,))
-        data=cursor.fetchone()
+        data=cursor.fetchall()
         return data
 
 def getitemsbytype(type):
@@ -37,11 +37,17 @@ def updateitems(id,price=None,quantity=None):
             with get_product_db() as conn:
                 cursor = conn.cursor()
             if price and not quantity:
-                cursor.execute("UPDATE Products SET Price = ? WHERE Id = ?",(id,price))
+                cursor.execute("UPDATE Products SET Price = ? WHERE Id = ?",(price,id))
+                conn.commit()
+                return "Price Updated Successfully"
             elif not price and  quantity:
-                cursor.execute("UPDATE Products SET Quantity = ? WHERE Id = ?",(id,quantity))
+                cursor.execute("UPDATE Products SET Quantity = ? WHERE Id = ?",(quantity,id))
+                conn.commit()
+                return "Quantity Updated Successfully"
             elif price and  quantity:
-                cursor.execute("UPDATE Products SET Price = ?, Quantity WHERE Id = ?",(id,quantity,price))
+                cursor.execute("UPDATE Products SET Price = ?, Quantity = ? WHERE Id = ?",(price,quantity,id))
+                conn.commit()
+                return "Price and Quantity Updated Successfully"
             else:
                 return "No Updates Provided"
         else:
