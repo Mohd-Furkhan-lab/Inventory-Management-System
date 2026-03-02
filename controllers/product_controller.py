@@ -32,5 +32,4 @@ def get_itemsby_type_controller():
 def get_itemby_id_controller():
     id=request.form.get("id")
     items=get_itemby_id(id)
-    print(items)
     return render_template("index.html",data=items)
