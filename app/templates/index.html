@@ -25,6 +25,11 @@
                 <button type="submit">Search</button>
             </form>
         </div>
+         </div>
+         <form method="post" action="{{url_for('admin.adminlogout')}}"> 
+             <button class="logout-button">Logout</button>
+        </form>
+        <div>
     </nav>
     <!-- Search Form (Hidden by default) -->
     <div class="search-container" id="searchContainer" style="display: none;">

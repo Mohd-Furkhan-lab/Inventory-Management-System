@@ -16,3 +16,7 @@ def singup_controller():
         if res:
             return redirect(url_for('products.get_products'))
     return render_template("signup.html")
+
+def logout_controller():
+    if request.method == "POST":
+        return redirect(url_for("admin.adminlogin"))
