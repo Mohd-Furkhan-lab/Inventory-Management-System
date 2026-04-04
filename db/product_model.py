@@ -1,4 +1,4 @@
-from db.database import get_product_db
+from app.db.database import get_product_db
 
 with get_product_db() as conn:
     cursor=conn.cursor()
