@@ -1,6 +1,6 @@
 from flask import Flask
-from routes.products import products
-from routes.admin import admin
+from app.routes.products import products
+from app.routes.admin import admin
 
 
 app=Flask(__name__) 
