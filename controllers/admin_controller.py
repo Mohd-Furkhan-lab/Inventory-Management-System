@@ -1,4 +1,4 @@
-from services.admin_services import admin_login_check,add_admin
+from app.services.admin_services import admin_login_check,add_admin
 from flask import request,render_template,redirect,url_for
 
 def login_controller():
