@@ -1,4 +1,4 @@
-from db.database import get_admin_db
+from app.db.database import get_admin_db
 
 with get_admin_db() as conn:
     cursor=conn.cursor()
