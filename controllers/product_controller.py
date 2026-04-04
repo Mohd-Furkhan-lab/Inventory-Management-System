@@ -1,5 +1,5 @@
 from flask import request,render_template,redirect,url_for
-from services.products_services import add_items,update_items,delete_item,get_allitems,get_itemsby_type,get_itemby_id
+from app.services.products_services import add_items,update_items,delete_item,get_allitems,get_itemsby_type,get_itemby_id
 
 def add_products_controller():
     if request.method == "POST":
