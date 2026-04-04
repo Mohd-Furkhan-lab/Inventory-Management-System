@@ -1,4 +1,4 @@
-from db.admin_model import login_check,admin_signup
+from app.db.admin_model import login_check,admin_signup
 import bcrypt
 from flask import session
 
