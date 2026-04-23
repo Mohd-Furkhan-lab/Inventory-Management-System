@@ -1,2 +1,4 @@
 .env
 env
+Admin.db
+Products.db
