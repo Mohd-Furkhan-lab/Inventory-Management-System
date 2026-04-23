@@ -1,6 +1,6 @@
 from flask import Blueprint
-from app.controllers.product_controller import get_all_items_controller,get_itemby_id_controller,get_itemsby_type_controller,add_products_controller,update_products_controller,delete_products_controller
-from app.middelwares.auth_middelware import is_login
+from controllers.product_controller import get_all_items_controller,get_itemby_id_controller,get_itemsby_type_controller,add_products_controller,update_products_controller,delete_products_controller
+from middelwares.auth_middelware import is_login
 products=Blueprint("products",__name__,url_prefix="/products")
 
 @products.route('/',methods=["GET","POST"])

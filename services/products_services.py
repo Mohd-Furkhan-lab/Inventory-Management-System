@@ -1,4 +1,4 @@
-from app.db.product_model import additem,getallitems,getitemsbyid,getitemsbytype,updateitems,deleteitems
+from db.product_model import additem,getallitems,getitemsbyid,getitemsbytype,updateitems,deleteitems
 
 def add_items(data):
     name=data.get("name")

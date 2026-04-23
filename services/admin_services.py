@@ -1,8 +1,8 @@
-from app.db.admin_model import login_check,admin_signup
+from db.admin_model import login_check,admin_signup
 import bcrypt
-from flask import session
+from flask import session,abort
 
-def admin_login_check(data):
+def admin_login_check(data): 
     if data:
         name=data.get("name")
         password=data.get("password")
